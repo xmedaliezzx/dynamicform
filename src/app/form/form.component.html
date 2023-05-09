@@ -1,0 +1,96 @@
+<form [formGroup]="form" class="" style="display: flex; flex-wrap: wrap;max-width: 50%;">
+  <ng-container
+    *ngFor="let field of dynamicform.fields"
+    [ngSwitch]="field.type"
+  >
+    <app-datepicker
+      [ngStyle]="{ 'flex-grow': 1, width: innerWidth > 1024 ? field.width : field.mobileWidth }"
+      *ngSwitchCase="FieldTypes.datepicker"
+      [form]="form"
+      [field]="field"
+    ></app-datepicker>
+    <app-input
+      [ngStyle]="{ 'flex-grow': 1,width: innerWidth > 1024 ? field.width : field.mobileWidth }"
+      *ngSwitchCase="FieldTypes.input"
+      [form]="form"
+      [field]="field"
+    ></app-input>
+    <app-select
+      [ngStyle]="{ 'flex-grow': 1,width: innerWidth > 1024 ? field.width : field.mobileWidth }"
+      *ngSwitchCase="FieldTypes.singleselection"
+      [form]="form"
+      [field]="field"
+    ></app-select>
+    <app-timepicker
+      [ngStyle]="{ 'flex-grow': 1,width: innerWidth > 1024 ? field.width : field.mobileWidth }"
+      *ngSwitchCase="FieldTypes.timepicker"
+      [form]="form"
+      [field]="field"
+    ></app-timepicker>
+    <app-upload
+      [ngStyle]="{ 'flex-grow': 1,width: innerWidth > 1024 ? field.width : field.mobileWidth }"
+      *ngSwitchCase="FieldTypes.upload"
+      [formdata]="formdata"
+      [field]="field"
+    ></app-upload>
+    <app-radio
+      [ngStyle]="{ 'flex-grow': 1,width: innerWidth > 1024 ? field.width : field.mobileWidth }"
+      *ngSwitchCase="FieldTypes.radiobuttons"
+      [form]="form"
+      [field]="field"
+    ></app-radio>
+    <app-checkbox
+      [ngStyle]="{ 'flex-grow': 1,width: innerWidth > 1024 ? field.width : field.mobileWidth, 'display': 'flex', 'align-items': 'center' }"
+      *ngSwitchCase="FieldTypes.checkbox"
+      [form]="form"
+      [field]="field"
+    ></app-checkbox>
+
+    <ng-container
+      *ngIf="
+        form.controls[field.name].value == field?.children?.activationValue
+      "
+    >
+      <ng-container
+        *ngFor="let field of field?.children?.childrens"
+        [ngSwitch]="field.type"
+      >
+        <app-datepicker
+          *ngSwitchCase="FieldTypes.datepicker"
+          [form]="form"
+          [field]="field"
+        ></app-datepicker>
+        <app-input
+          *ngSwitchCase="FieldTypes.input"
+          [form]="form"
+          [field]="field"
+        ></app-input>
+        <app-select
+          *ngSwitchCase="FieldTypes.singleselection"
+          [form]="form"
+          [field]="field"
+        ></app-select>
+        <app-timepicker
+          *ngSwitchCase="FieldTypes.timepicker"
+          [form]="form"
+          [field]="field"
+        ></app-timepicker>
+        <app-upload
+          *ngSwitchCase="FieldTypes.upload"
+          [formdata]="formdata"
+          [field]="field"
+        ></app-upload>
+        <app-radio
+          *ngSwitchCase="FieldTypes.radiobuttons"
+          [form]="form"
+          [field]="field"
+        ></app-radio>
+        <app-checkbox
+          *ngSwitchCase="FieldTypes.checkbox"
+          [form]="form"
+          [field]="field"
+        ></app-checkbox>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</form>
